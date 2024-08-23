@@ -1,6 +1,15 @@
 import numpy as np
 
 import math 
+
+def encontrar_indice(numero, lista):
+    try:
+        indice = lista.index(numero)
+        return indice
+    except ValueError:
+        return None
+
+
 def gerando_amostra(N):
   sequencia = np.random.randint(1, N + 1, N)
   return sequencia
@@ -74,22 +83,40 @@ def etapa_2(vetor):
     maior_elemento = i[-1]
     lista_maiores.append(maior_elemento)
   print("lista_maiores_2",lista_maiores)
-  lista_maiores = bubbleSort(lista_maiores)
-  return lista_maiores
+  lista_maiores_ordenados = bubbleSort(lista_maiores)
+  #print("lista_maiores_2",lista_maiores,lista_maiores_ordenados)
+  maior=etapa_3(lista_maiores_ordenados)
+ 
+  indice=encontrar_indice(maior,lista_maiores)
+  print(indice)
+  vetor[indice] = np.delete(vetor[indice],-1)
+  print(vetor)
 
 def etapa_3(lista_maiores):
-  vetor_solucao=[]
+ 
   maior_ele = lista_maiores[-1]
-  vetor_solucao.append(maior_ele)
-  print(vetor_solucao)
+ 
+  print(maior_ele)
+  return maior_ele
+
+
+def etapa_4(vetor):
+   vetor =  etapa_1(vetor)
+   vetor =  sort_pedacos(vetor)
+   print(vetor)
+   etapa_2(vetor)
+  
+   return None
 
 N  = 10*3
 
 vetor = gerando_amostra(N)
 
-
+#etapa_4(vetor)
+""" 
 vetor=etapa_1(vetor)
 vetor=sort_pedacos(vetor)
 print(vetor)
 etapa_3(etapa_2(vetor))
-
+print(vetor)
+""" 
