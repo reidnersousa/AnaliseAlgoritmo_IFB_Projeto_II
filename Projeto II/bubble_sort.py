@@ -83,40 +83,36 @@ def etapa_2(vetor):
     maior_elemento = i[-1]
     lista_maiores.append(maior_elemento)
   print("lista_maiores_2",lista_maiores)
-  lista_maiores_ordenados = bubbleSort(lista_maiores)
-  #print("lista_maiores_2",lista_maiores,lista_maiores_ordenados)
+  lista_maiores_ordenados = bubbleSort(lista_maiores).copy()
+  print("lista_maiores_2",lista_maiores,lista_maiores_ordenados)
   maior=etapa_3(lista_maiores_ordenados)
  
   indice=encontrar_indice(maior,lista_maiores)
   print(indice)
   vetor[indice] = np.delete(vetor[indice],-1)
   print(vetor)
+  vetor = [arr for arr in vetor if arr.size > 0]
+  return vetor
 
 def etapa_3(lista_maiores):
  
   maior_ele = lista_maiores[-1]
  
-  print(maior_ele)
+  #print(maior_ele)
   return maior_ele
 
 
 def etapa_4(vetor):
    vetor =  etapa_1(vetor)
    vetor =  sort_pedacos(vetor)
-   print(vetor)
-   etapa_2(vetor)
-  
+   print("input",vetor)
+   vetor=etapa_2(vetor)
+   print(">",vetor) 
    return None
 
 N  = 10*3
 
 vetor = gerando_amostra(N)
 
-#etapa_4(vetor)
-""" 
-vetor=etapa_1(vetor)
-vetor=sort_pedacos(vetor)
-print(vetor)
-etapa_3(etapa_2(vetor))
-print(vetor)
-""" 
+etapa_4(vetor)
+
