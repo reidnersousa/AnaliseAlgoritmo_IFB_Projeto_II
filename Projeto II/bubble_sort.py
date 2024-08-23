@@ -67,13 +67,29 @@ def sort_pedacos(vetor):
   for i in vetor:
     lista.append(bubbleSort(i))
   return lista
+
+def etapa_2(vetor):
+  lista_maiores = []
+  for i in vetor:
+    maior_elemento = i[-1]
+    lista_maiores.append(maior_elemento)
+  print("lista_maiores_2",lista_maiores)
+  lista_maiores = bubbleSort(lista_maiores)
+  return lista_maiores
+
+def etapa_3(lista_maiores):
+  vetor_solucao=[]
+  maior_ele = lista_maiores[-1]
+  vetor_solucao.append(maior_ele)
+  print(vetor_solucao)
+
 N  = 10*3
 
 vetor = gerando_amostra(N)
 
 
 vetor=etapa_1(vetor)
-print(vetor)
 vetor=sort_pedacos(vetor)
-print("sort vetor",vetor)
+print(vetor)
+etapa_3(etapa_2(vetor))
 
