@@ -1,6 +1,6 @@
 import numpy as np
-
-import math 
+import math
+import timeit
 
 def encontrar_indice(numero, lista):
     try:
@@ -9,20 +9,12 @@ def encontrar_indice(numero, lista):
     except ValueError:
         return None
 
-
 def gerando_amostra(N):
-  sequencia = np.random.randint(1, N + 1, N)
-  return sequencia
+    sequencia = np.random.randint(1, N + 1, N)
+    return sequencia
 
-
-def eh_multiplo(N,qtd_partes):
-  return N % qtd_partes ==0
-
-
-def modulo_sqrt_n(n):
-    floor_sqrt_n = math.floor(math.sqrt(n))
-    result = n % floor_sqrt_n
-    return result
+def eh_multiplo(N, qtd_partes):
+    return N % qtd_partes == 0
 
 def bubbleSort(arr):
     arr = arr.copy()  # Cria uma cópia para não alterar a lista original
@@ -33,80 +25,69 @@ def bubbleSort(arr):
                 arr[j], arr[j+1] = arr[j+1], arr[j]
     return arr
 
-
-### Dividir em k partes , k = \sqrt{N}
-## Caso o tamanho do vetor não seja multiplo de sqrt\{N}  a ultima parte terá tamanho (n mod \lfloor \sqrt{n} \rfloor)
 def etapa_1(vetor):
-  tam_vetor=  len(vetor)
-  qtd_partes = np.sqrt(tam_vetor)
-  lista =[]
-  if tam_vetor % qtd_partes == 0:
-   
+    tam_vetor = len(vetor)
+    qtd_partes = int(np.sqrt(tam_vetor))
+    lista = []
     j = 0
-    for i in range(0,int(qtd_partes)):
-      j = j +1
-      corte = vetor[int(qtd_partes)*i:int(qtd_partes)*j]
-      corte=bubbleSort(corte)
-     
-      lista.append(corte)
-  if not eh_multiplo(tam_vetor,qtd_partes):
+    for i in range(0, qtd_partes):
+        j += 1
+        corte = vetor[qtd_partes * i:qtd_partes * j]
+        corte = bubbleSort(corte)
+        lista.append(corte)
     
-   
-    j = 0
-    for i in range(0,int(qtd_partes)):
-      j = j +1
-      corte = vetor[int(qtd_partes)*i:int(qtd_partes)*j]
-     
-      lista.append(corte)
-     
-   
-    ultimo_corte = vetor[int(qtd_partes)*j:]
+    if j * qtd_partes < tam_vetor:
+        ultimo_corte = vetor[j * qtd_partes:]
+        lista.append(ultimo_corte)
     
-    
-    lista.append(ultimo_corte)
-   
-  return lista 
+    return lista
 
 def sort_pedacos(vetor):
-  lista =[]
-  for i in vetor:
-    lista.append(bubbleSort(i))
-  return lista
+    lista = []
+    for i in vetor:
+        lista.append(bubbleSort(i))
+    return lista
 
 def etapa_2(vetor):
-  lista_maiores = []
-  for i in vetor:
-    maior_elemento = i[-1]
-    lista_maiores.append(maior_elemento)
-  
-  lista_maiores_ordenados = bubbleSort(lista_maiores).copy()
- 
-  maior=etapa_3(lista_maiores_ordenados)
- 
-  indice=encontrar_indice(maior,lista_maiores)
+    vetor_solucao = []
+    lista_maiores = []
+    for i in vetor:
+        maior_elemento = i[-1]
+        lista_maiores.append(maior_elemento)
+    
+    lista_maiores_ordenados = bubbleSort(lista_maiores).copy()
+    maior = etapa_3(lista_maiores_ordenados)
+    indice = encontrar_indice(maior, lista_maiores)
 
-  vetor[indice] = np.delete(vetor[indice],-1)
-  vetor = [arr for arr in vetor if arr.size > 0]
-  return vetor
+    vetor[indice] = np.delete(vetor[indice], -1)
+    vetor = [arr for arr in vetor if arr.size > 0]
+    vetor_solucao.append(maior)
+    return vetor_solucao, vetor
 
 def etapa_3(lista_maiores):
- 
-  maior_ele = lista_maiores[-1]
- 
-  #print(maior_ele)
-  return maior_ele
-
+    maior_ele = lista_maiores[-1]
+    return maior_ele
 
 def etapa_4(vetor):
-   vetor =  etapa_1(vetor)
-   vetor =  sort_pedacos(vetor)
-   print("input",vetor)
-   vetor=etapa_2(vetor)
-   print(">",vetor) 
-   return None
+    vetor = etapa_1(vetor)
+    vetor = sort_pedacos(vetor)
+    #print("input\n\n", vetor)
+    vetor_solucao = []
+    while len(vetor) > 0:
+        solucao_parcial, vetor = etapa_2(vetor)
+        vetor_solucao.append(solucao_parcial[0])
 
-N  = 10*3
+    return vetor_solucao
 
+N = 10**4
 vetor = gerando_amostra(N)
 
-etapa_4(vetor)
+#v_s = etapa_4(vetor)
+#v_s_convertido = [int(i) for i in v_s]
+#print("\n\n",v_s_convertido)
+import timeit
+
+qtd_rep = 1
+tempo_exc = timeit.timeit(lambda: etapa_4(vetor), number=qtd_rep)
+media = tempo_exc / qtd_rep
+print(media, N)
