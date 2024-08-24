@@ -38,6 +38,7 @@ def etapa_1(vetor):
     
     if j * qtd_partes < tam_vetor:
         ultimo_corte = vetor[j * qtd_partes:]
+        ultimo_corte = bubbleSort(ultimo_corte)
         lista.append(ultimo_corte)
     
     return lista
