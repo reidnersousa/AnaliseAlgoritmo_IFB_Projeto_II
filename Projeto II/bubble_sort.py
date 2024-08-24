@@ -24,18 +24,14 @@ def modulo_sqrt_n(n):
     result = n % floor_sqrt_n
     return result
 
-def bubbleSort(array):
-    for i in range(len(array) - 1, 0, -1):
-        swapped = False
-        for j in range(i):
-            if array[j] > array[j + 1]:
-                temp = array[j]
-                array[j] = array[j + 1]
-                array[j + 1] = temp
-                swapped = True
-        if not swapped:
-            break
-    return array
+def bubbleSort(arr):
+    arr = arr.copy()  # Cria uma cópia para não alterar a lista original
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
 
 
 ### Dividir em k partes , k = \sqrt{N}
@@ -82,15 +78,14 @@ def etapa_2(vetor):
   for i in vetor:
     maior_elemento = i[-1]
     lista_maiores.append(maior_elemento)
-  print("lista_maiores_2",lista_maiores)
+  
   lista_maiores_ordenados = bubbleSort(lista_maiores).copy()
-  print("lista_maiores_2",lista_maiores,lista_maiores_ordenados)
+ 
   maior=etapa_3(lista_maiores_ordenados)
  
   indice=encontrar_indice(maior,lista_maiores)
-  print(indice)
+
   vetor[indice] = np.delete(vetor[indice],-1)
-  print(vetor)
   vetor = [arr for arr in vetor if arr.size > 0]
   return vetor
 
@@ -115,4 +110,3 @@ N  = 10*3
 vetor = gerando_amostra(N)
 
 etapa_4(vetor)
-
