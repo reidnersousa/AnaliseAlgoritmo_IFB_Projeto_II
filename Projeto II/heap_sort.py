@@ -64,7 +64,8 @@ def print_heap(vetor):
         
 def etapa_2(vetor):
     maiores_2 = []
-    
+    vetor = [heap for heap in vetor if len(heap.GETHEAP()) > 0]
+
     # Remover o maior elemento de cada heap e armazenar em maiores_2
     for heap in vetor:
         maiores_2.append(heap.REMOVEHEAP())
@@ -100,3 +101,4 @@ print_heap(vetor)
 m=etapa_2(vetor)
 vetor_solucao.append(m)
 print(vetor_solucao)
+###
