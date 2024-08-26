@@ -57,15 +57,46 @@ def etapa_1(vetor):
     return lista
 
 
+# Exibe as heaps
+def print_heap(vetor):
+    for i, heap in enumerate(vetor):
+        print(f"Heap {i+1}: {heap.GETHEAP()}")
+        
+def etapa_2(vetor):
+    maiores_2 = []
+    
+    # Remover o maior elemento de cada heap e armazenar em maiores_2
+    for heap in vetor:
+        maiores_2.append(heap.REMOVEHEAP())
+    
+    print(maiores_2)
+    
+    # Criar uma nova heap com os maiores elementos removidos
+    nova_heap = Heap(maiores_2)
+    print(nova_heap.GETHEAP())
+    
+    # Remover o maior elemento da nova heap
+    m = nova_heap.REMOVEHEAP()
+    print("m", m, "heap", nova_heap.GETHEAP())
+    
+    # Inserir os valores de volta nas heaps originais
+    for i, heap in enumerate(vetor):
+        if i < len(maiores_2):
+            print("Heap antes:", heap.GETHEAP())
+            heap.INSERTHEAP(maiores_2[i])
+            print("Heap depois:", heap.GETHEAP(), "i", i, "m", maiores_2[i])
+        else:
+            break
+    return m 
+    
 
 N = 10**1
 vetor = gerando_amostra(N)
-print(vetor)
+#print(vetor)
+vetor_solucao = []
 vetor=etapa_1(vetor)
-
-
-
-# Exibe as heaps
-for i, heap in enumerate(vetor):
-    print(f"Heap {i+1}: {heap.GETHEAP()}")
-    print(heap.REMOVEHEAP())
+##
+print_heap(vetor)
+m=etapa_2(vetor)
+vetor_solucao.append(m)
+print(vetor_solucao)
