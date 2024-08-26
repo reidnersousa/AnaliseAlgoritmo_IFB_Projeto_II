@@ -66,7 +66,7 @@ def etapa_2(vetor):
     maiores_2 = []
     
     vetor = [heap for heap in vetor if len(heap.GETHEAP()) > 0]
-    print_heap(vetor)
+    #print_heap(vetor)
    
     # Remover o maior elemento de cada heap e armazenar em maiores_2
     for heap in vetor:
@@ -93,23 +93,23 @@ def etapa_2(vetor):
     return m ,vetor
 def etapa_4(vetor):
     vetor_solucao = []
+    vetor = etapa_1(vetor)
     while  len(vetor)> 0:
        
         vs,vetor=etapa_2(vetor)
         if vs is not None:
             vetor_solucao.append(vs)
-    
+    #print(vetor_solucao)
     return vetor_solucao
-N = 5**1
+
+import timeit
+
+
+N = 10**6
 vetor = gerando_amostra(N)
-#print(vetor)
 
-vetor_solucao = []
-vetor=etapa_1(vetor)
-#etapa_4(vetor)
-#m=etapa_2(vetor)
-#vetor_solucao.append(m)
-#print(vetor_solucao)
-vetor_solucao=etapa_4(vetor)
-print(vetor_solucao)
+qtd_rep =1 
+tempo_exc = timeit.timeit(lambda: etapa_4(vetor) , number=qtd_rep )
 
+media =  tempo_exc / qtd_rep
+print(media)
