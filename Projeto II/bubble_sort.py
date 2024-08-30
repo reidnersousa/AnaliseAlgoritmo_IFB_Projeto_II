@@ -65,19 +65,15 @@ def etapa_2(vetor):
 
         vetor_solucao.append(maior)
         vetor[idx_maior] = vetor[idx_maior][:-1]  # Remove o maior elemento encontrado
+    print(vetor_solucao,vetor)
     
-    return vetor_solucao, vetor
 
-
-N = 25**1
+N = 10**1
 
 vetor = gerando_amostra(N)
 vetor = etapa_1(vetor)
 print(vetor)
-v_s , vetor = etapa_2(vetor)
 
-v_s_convertido = [int(i) for i in v_s]
-print("\n\n",v_s_convertido)
 import timeit
 
 qtd_rep = 1
