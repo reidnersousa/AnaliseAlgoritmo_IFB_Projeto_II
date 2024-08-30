@@ -41,14 +41,14 @@ def gerando_amostra(N):
 import timeit
 
 
-N = 7**1
+N = 10**7S
 vetor = gerando_amostra(N)
-print("Vetor inicial:", vetor)
+#print("Vetor inicial:", vetor)
 qtd_rep = 1
 vetor = etapa_1(vetor)
-vetor_solucao=etapa_2(vetor)
-print(vetor_solucao)
-#tempo_exc = timeit.timeit(lambda: etapa_4(vetor), number=qtd_rep)
+#vetor_solucao=etapa_2(vetor)
+#print(vetor_solucao)
+tempo_exc = timeit.timeit(lambda: etapa_2(vetor), number=qtd_rep)
 
-#media = tempo_exc / qtd_rep
-#print("Tempo médio:", media,N)
+media = tempo_exc / qtd_rep
+print("Tempo médio:", media,N)
