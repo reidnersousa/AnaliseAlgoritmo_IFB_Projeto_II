@@ -51,28 +51,25 @@ def sort_pedacos(vetor):
 
 def etapa_2(vetor):
     vetor_solucao = []
-    #lista_maiores = []
-    #print(vetor)
-    for i in range(len(vetor)):    
+
+    while any(len(v) > 0 for v in vetor):  # Continua enquanto houver elementos em qualquer sublista
         maior = -10000000
         idx_maior = -1
-        #print(vetor)
-        for i,v in enumerate(vetor):
-            if(len(v)==0):
+
+        for i, v in enumerate(vetor):
+            if len(v) == 0:
                 continue
-            if(v[-1] > maior):
+            if v[-1] > maior:
                 maior = v[-1]
                 idx_maior = i
 
         vetor_solucao.append(maior)
-        #print(type(vetor[idx_maior]))
-        vetor[idx_maior] = vetor[idx_maior][:-1] 
-        
+        vetor[idx_maior] = vetor[idx_maior][:-1]  # Remove o maior elemento encontrado
+    
     return vetor_solucao, vetor
 
 
-
-N = 10**2
+N = 25**1
 
 vetor = gerando_amostra(N)
 vetor = etapa_1(vetor)
