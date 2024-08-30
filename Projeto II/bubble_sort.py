@@ -52,36 +52,27 @@ def sort_pedacos(vetor):
 def etapa_2(vetor):
     vetor_solucao = []
     lista_maiores = []
-    for i in vetor:
-        maior_elemento = i[-1]
-        lista_maiores.append(maior_elemento)
-    
-    lista_maiores_ordenados = bubbleSort(lista_maiores).copy()
-    maior = etapa_3(lista_maiores_ordenados)
-    indice = encontrar_indice(maior, lista_maiores)
+    for i in range(len(vetor)):    
+        maior = -10000000
+        idx_maior = -1
 
-    vetor[indice] = np.delete(vetor[indice], -1)
-    vetor = [arr for arr in vetor if arr.size > 0]
-    vetor_solucao.append(maior)
+        for i,v in enumerate(vetor):
+            if(len(to_v)==0):
+                continue
+            if(v[-1] > maior):
+                maior = v[-1]
+                idx_maior = i
+
+        vetor_solucao.append(maior)
+        vetor[idx_maior].pop()
     return vetor_solucao, vetor
 
-def etapa_3(lista_maiores):
-    maior_ele = lista_maiores[-1]
-    return maior_ele
 
-def etapa_4(vetor):
-    vetor = etapa_1(vetor)
-    vetor = sort_pedacos(vetor)
-    #print("input\n\n", vetor)
-    vetor_solucao = []
-    while len(vetor) > 0:
-        solucao_parcial, vetor = etapa_2(vetor)
-        vetor_solucao.append(solucao_parcial[0])
 
-    return vetor_solucao
+N = 10**1
 
-N = 10**6
 vetor = gerando_amostra(N)
+v_s = etapa_2(vetor)
 
 #v_s = etapa_4(vetor)
 #v_s_convertido = [int(i) for i in v_s]
@@ -89,6 +80,6 @@ vetor = gerando_amostra(N)
 import timeit
 
 qtd_rep = 1
-tempo_exc = timeit.timeit(lambda: etapa_4(vetor), number=qtd_rep)
+tempo_exc = timeit.timeit(lambda: etapa_2(vetor), number=qtd_rep)
 media = tempo_exc / qtd_rep
 print(media, N)
