@@ -51,32 +51,36 @@ def sort_pedacos(vetor):
 
 def etapa_2(vetor):
     vetor_solucao = []
-    lista_maiores = []
+    #lista_maiores = []
+    #print(vetor)
     for i in range(len(vetor)):    
         maior = -10000000
         idx_maior = -1
-
+        #print(vetor)
         for i,v in enumerate(vetor):
-            if(len(to_v)==0):
+            if(len(v)==0):
                 continue
             if(v[-1] > maior):
                 maior = v[-1]
                 idx_maior = i
 
         vetor_solucao.append(maior)
-        vetor[idx_maior].pop()
+        #print(type(vetor[idx_maior]))
+        vetor[idx_maior] = vetor[idx_maior][:-1] 
+        
     return vetor_solucao, vetor
 
 
 
-N = 10**1
+N = 10**2
 
 vetor = gerando_amostra(N)
-v_s = etapa_2(vetor)
+vetor = etapa_1(vetor)
+print(vetor)
+v_s , vetor = etapa_2(vetor)
 
-#v_s = etapa_4(vetor)
-#v_s_convertido = [int(i) for i in v_s]
-#print("\n\n",v_s_convertido)
+v_s_convertido = [int(i) for i in v_s]
+print("\n\n",v_s_convertido)
 import timeit
 
 qtd_rep = 1
