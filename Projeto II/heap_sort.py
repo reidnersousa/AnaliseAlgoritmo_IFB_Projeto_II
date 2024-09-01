@@ -41,7 +41,7 @@ def gerando_amostra(N):
 import timeit
 
 
-N = 10**7S
+N = 10**7
 vetor = gerando_amostra(N)
 #print("Vetor inicial:", vetor)
 qtd_rep = 1
